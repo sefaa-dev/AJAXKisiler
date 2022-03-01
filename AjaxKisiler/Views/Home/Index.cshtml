@@ -1,0 +1,44 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div>
+        <input type="text" id="kisiID" />
+        <input type="submit" id="kisiListele" value="Listele" />
+        <hr />
+        <p>Kisi Adı: <strong id="kisiAdi"></strong> </p>
+        <p>Sehir Adı: <strong id="sehirAdi"></strong> </p>
+
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(function () {
+        $("#kisiListele").click(function () {
+            var Id = $("#kisiID").val();
+            $.ajax({
+                url: '/Home/KisiListele/' + Id,
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    $("#kisiAdi").html(data.Isim);
+                    $("#sehirAdi").html(data.Sehir);
+                },
+                error: function (data) {
+                    alert("Bu Id'ye ait veri yok !!");
+                }
+            });
+        });
+    });
+</script>
